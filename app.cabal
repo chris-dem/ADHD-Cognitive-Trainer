@@ -25,6 +25,6 @@ executable app
   hs-source-dirs:
     app
   build-depends:
-    base, miso
+    base, miso >= 1.9, containers
   default-language:
-    GHC2024
+    Haskell2010
