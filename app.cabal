@@ -24,7 +24,10 @@ executable app
     Main.hs
   hs-source-dirs:
     app
+  other-modules:
+    Games.FlowFree
+    Games.FlowFree.Core
   build-depends:
-    base, miso >= 1.9, containers
+    base, miso >= 1.9, containers, vector, random
   default-language:
     Haskell2010
