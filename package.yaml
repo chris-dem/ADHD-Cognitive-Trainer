@@ -1,0 +1,42 @@
+name: app
+version: 0.1.0.0
+synopsis: "Sample miso app"
+category: Web
+
+# Hpack generates .cabal version automatically.
+#
+library:
+  source-dirs: lib-src
+  language: Haskell2010
+  dependencies: 
+      - base
+      - containers
+      - vector
+      - random
+
+#
+executables:
+  app:
+    main: Main.hs
+    source-dirs: app
+
+    when:
+      - condition: "arch(wasm32)"
+        ghc-options:
+          - -no-hs-main
+          - -optl-mexec-model=reactor
+          - "-optl-Wl,--export=hs_start"
+        cpp-options:
+          - -DWASM
+
+      - condition: "arch(javascript)"
+        ld-options:
+          - -sEXPORTED_RUNTIME_METHODS=HEAP8
+
+    dependencies:
+      - base
+      - app
+      - miso >= 1.9
+
+    language: Haskell2010
+

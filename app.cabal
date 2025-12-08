@@ -1,33 +1,47 @@
-cabal-version: 2.2
-name: app
-version: 0.1.0.0
-synopsis: Sample miso app
-category: Web
+cabal-version: 1.12
 
-common options
-  if arch(wasm32)
-    ghc-options:
-      -no-hs-main
-      -optl-mexec-model=reactor
-      "-optl-Wl,--export=hs_start"
-    cpp-options:
-      -DWASM
+-- This file has been generated from package.yaml by hpack version 0.39.0.
+--
+-- see: https://github.com/sol/hpack
 
-  if arch(javascript)
-     ld-options:
-       -sEXPORTED_RUNTIME_METHODS=HEAP8
+name:           app
+version:        0.1.0.0
+synopsis:       Sample miso app
+category:       Web
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+
+library
+  exposed-modules:
+      Games.FlowFree
+      Games.FlowFree.Core
+      Games.GameType
+      Lib.LinAlg
+  other-modules:
+      Paths_app
+  hs-source-dirs:
+      lib-src
+  build-depends:
+      base
+    , containers
+    , random
+    , vector
+  default-language: Haskell2010
 
 executable app
-  import:
-    options
-  main-is:
-    Main.hs
-  hs-source-dirs:
-    app
+  main-is: Main.hs
   other-modules:
-    Games.FlowFree
-    Games.FlowFree.Core
+      Paths_app
+  hs-source-dirs:
+      app
   build-depends:
-    base, miso >= 1.9, containers, vector, random
-  default-language:
-    Haskell2010
+      app
+    , base
+    , miso >=1.9
+  default-language: Haskell2010
+  if arch(wasm32)
+    ghc-options: -no-hs-main -optl-mexec-model=reactor -optl-Wl,--export=hs_start
+    cpp-options: -DWASM
+  if arch(javascript)
+    ld-options: -sEXPORTED_RUNTIME_METHODS=HEAP8
