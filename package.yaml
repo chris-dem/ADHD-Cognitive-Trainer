@@ -12,6 +12,7 @@ library:
       - base
       - containers
       - vector
+      - vector-space
       - random
 
 #
@@ -36,6 +37,7 @@ executables:
     dependencies:
       - base
       - app
+      - vector-space
       - miso >= 1.9
 
     language: Haskell2010
